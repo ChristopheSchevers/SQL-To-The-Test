@@ -12,12 +12,13 @@
     <title>Log in</title>
 </head>
 <body>
-    <div class="container col-8 offset-2">
+    <div class="container col-8 offset-2 mt-5">
         <form action="" method="POST">
             <label for="login">Log in</label>
-            <input type="text" name="login">
+            <input type="text" name="login" placeholder="Enter name" required>
             <label for="password">Password</label>
-            <input type="password" name="password">
+            <input type="password" name="password" placeholder="Enter password" minlength="4" required>
+            <button type="submit" name="login-btn">Log in</button>
         </form>
     </div>
 
