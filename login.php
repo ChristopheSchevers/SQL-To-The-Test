@@ -27,7 +27,7 @@ include('header.php');
                         <input class="form-control p-2" type="password" name="password" placeholder="Enter password" minlength="4" required>
                     </div>
                     <div class="form-group text-center my-5">
-                        <button class="btn btn-success" type="submit" name="login-btn">Log in</button>
+                        <button class="btn btn-success" type="submit" name="login">Log in</button>
                     </div>
                 </form>
             </div>
