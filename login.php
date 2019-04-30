@@ -1,5 +1,5 @@
 <?php
-
+include('header.php');
 ?>
 
 <!DOCTYPE html>
@@ -8,18 +8,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Log in</title>
 </head>
 <body>
     <div class="container col-8 offset-2 mt-5">
-        <form action="" method="POST">
-            <label for="login">Log in</label>
-            <input type="text" name="login" placeholder="Enter name" required>
-            <label for="password">Password</label>
-            <input type="password" name="password" placeholder="Enter password" minlength="4" required>
-            <button type="submit" name="login-btn">Log in</button>
-        </form>
+        <div class="card d-flex justify-content-center align-items-center">
+            <h2 class="card-title mt-4">Log in</h2>
+            <div class="card-body">
+                <form action="" method="POST">
+                    <div class="form-group my-3">
+                        <label for="login">Log in</label>
+                        <input class="form-control p-2" type="text" name="login" placeholder="Enter username" required>
+                    </div>
+                    <div class="form-group my-3">
+                        <label for="password">Password</label>
+                        <input class="form-control p-2" type="password" name="password" placeholder="Enter password" minlength="4" required>
+                    </div>
+                    <div class="form-group text-center my-5">
+                        <button class="btn btn-success" type="submit" name="login-btn">Log in</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
 
     <!-- Bootstrap scripts -->

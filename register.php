@@ -1,4 +1,39 @@
 <?php
+session_start();
+
+if(isset($_SESSION['user_id'])){
+    header("location: /");
+}
+
+include('header.php');
+
+$message = '';
+
+$username = $_POST['username'];
+$firstname = $_POST['fname'];
+$lastname = $_POST['lname'];
+$usermail = $_POST['user_email'];
+$userpw = $_POST['passw'];
+
+if(!empty($_POST['username']) && !empty($_POST['fname']) && !empty($_POST['lname']) && !empty($_POST['user_email']) && !empty($_POST['passw'])){
+    $data = [
+        $username   => 'username',
+        $firstname  => 'fname',
+        $lastname   => 'lname',
+        $usermail   => 'user_email',
+        $userpw     => 'passw'
+    ];
+    
+    $sql = "INSERT INTO users(username,fname,lname,user_email,passw) VALUES (:username, :fname, :lname, :user_email, :passw)";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute($data);
+
+    if($stmt->execute()):
+        $message = 'Successfully created new user';
+    else :
+        $message = 'Error creating new user';
+    endif;
+}
 
 ?>
 
@@ -8,13 +43,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Register</title>
 </head>
 <body>
-    <div class="container col-8 offset-2 mt-5">
+    <div class="container col-8 offset-2 my-5">
         <div class="card d-flex justify-content-center align-items-center">
-            <h2 class="card-title">Register</h2>
+            <h2 class="card-title mt-4">Register</h2>
             <div class="card-body">
                 <form action="" method="POST">
                     <div class="form-group col-6 pl-0 my-3">
@@ -31,11 +67,11 @@
                             <input class="form-control p-2" type="text" name="lName" placeholder="Enter last name" required>
                         </div>
                     </div>
-                    <div class="form-group mt-2 mb-4">
+                    <div class="form-group my-4">
                         <label for="email">Email</label>
                         <input class="form-control p-2" type="email" name="email" placeholder="Enter email address" required>
                     </div>
-                    <div class="form-group my-3">
+                    <div class="form-group mt-4">
                         <label for="password">Password</label>
                         <input class="form-control p-2" type="password" name="password" placeholder="Enter password" minlength="4" required>
                     </div>
