@@ -1,14 +1,9 @@
 <?php
 session_start();
 
-include('header.php');
-
 $message = "";
 
-if(isset($_POST['register'])){
-    require('auth.php');
-}
-
+require('auth.php');
 ?>
 
 <!DOCTYPE html>
@@ -53,6 +48,9 @@ if(isset($_POST['register'])){
                         <label for="confirmPass">Confirm Password</label>
                         <input class="form-control p-2" type="password" name="confirmPass" placeholder="Repeat password" minlength="4" required>
                     </div>
+                    <p>
+                        <?php echo $message; ?>
+                    </p>
                     <div class="form-group text-center my-5">
                         <button class="btn btn-success" type="submit" name="register">Register</button>
                     </div>

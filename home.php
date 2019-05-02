@@ -1,5 +1,5 @@
 <?php
 include('header.php');
 
-echo "Welcome, "
+echo "Welcome, ".$_SESSION['user_id'];
 ?>

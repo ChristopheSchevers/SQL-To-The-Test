@@ -1,5 +1,7 @@
 <?php
-include('header.php');
+require('auth.php');
+
+$message = '';
 ?>
 
 <!DOCTYPE html>
@@ -20,12 +22,15 @@ include('header.php');
                 <form action="" method="POST">
                     <div class="form-group my-3">
                         <label for="login">Log in</label>
-                        <input class="form-control p-2" type="text" name="login" placeholder="Enter username" required>
+                        <input class="form-control p-2" type="text" name="username" placeholder="Enter username" required>
                     </div>
                     <div class="form-group my-3">
                         <label for="password">Password</label>
                         <input class="form-control p-2" type="password" name="password" placeholder="Enter password" minlength="4" required>
                     </div>
+                    <p>
+                        <?php echo $message; ?>
+                    </p>
                     <div class="form-group text-center my-5">
                         <button class="btn btn-success" type="submit" name="login">Log in</button>
                     </div>
