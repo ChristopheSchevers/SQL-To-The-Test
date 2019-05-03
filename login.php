@@ -1,7 +1,7 @@
 <?php
-require('auth.php');
+session_start();
 
-$message = '';
+require('auth.php');
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +29,7 @@ $message = '';
                         <input class="form-control p-2" type="password" name="password" placeholder="Enter password" minlength="4" required>
                     </div>
                     <p>
-                        <?php echo $message; ?>
+                        <?php echo $_SESSION['msg']; ?>
                     </p>
                     <div class="form-group text-center my-5">
                         <button class="btn btn-success" type="submit" name="login">Log in</button>

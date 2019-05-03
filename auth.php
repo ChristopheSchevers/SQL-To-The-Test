@@ -33,7 +33,9 @@ if(isset($_POST['register'])){
         }
     
     } else {
-        $message = "Please fill in all the fields";
+        $_SESSION['msg'] = "Please fill in all the fields";
+        header('location: register.php');
+        exit();
     }
     
     }
@@ -57,16 +59,19 @@ if(isset($_POST['login'])){
         $user = $loginStmt->fetch(PDO::FETCH_ASSOC);
 
         if($user === false){
-            die($message = 'Username and/or password not correct!');
+            $_SESSION['msg'] = 'Username and/or password not correct!';
+            header('location: login.php');
         } else {
             if(password_verify($loginpw, $user['passw'])){
                 $_SESSION['user_id'] = $user['id'];
+                $_SESSION['fname'] = $user['fname'];
                 $_SESSION['logged_in'] = time();
                 
                 header('Location: home.php');
                 exit;
             } else {
-                die($message = 'Username and/or password not correct!');
+                $_SESSION['msg'] = 'Username and/or password not correct!';
+                header('location: login.php');
             }
         }
     }
