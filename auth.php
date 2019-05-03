@@ -64,7 +64,10 @@ if(isset($_POST['login'])){
         } else {
             if(password_verify($loginpw, $user['passw'])){
                 $_SESSION['user_id'] = $user['id'];
+                $_SESSION['username'] = $user['username'];
                 $_SESSION['fname'] = $user['fname'];
+                $_SESSION['lname'] = $user['lname'];
+                $_SESSION['email'] = $user['user_email'];
                 $_SESSION['logged_in'] = time();
                 
                 header('Location: home.php');
