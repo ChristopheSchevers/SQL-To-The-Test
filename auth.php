@@ -40,8 +40,7 @@ if(isset($_POST['register'])){
     
     }
     catch(PDOException $e){
-        echo "Error occurred: ". $e->getMessage();
-        die();
+        die("Error occurred: ". $e->getMessage());
     }
 }
 
@@ -68,6 +67,7 @@ if(isset($_POST['login'])){
                 $_SESSION['fname'] = $user['fname'];
                 $_SESSION['lname'] = $user['lname'];
                 $_SESSION['email'] = $user['user_email'];
+                $_SESSION['pw'] = $user['passw'];
                 $_SESSION['logged_in'] = time();
                 
                 header('Location: home.php');
