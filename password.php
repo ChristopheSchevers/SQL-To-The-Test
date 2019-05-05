@@ -3,14 +3,29 @@ session_start();
 
 include('header.php');
 
-if(isset($_POST['oldpass-btn']) && !empty($_POST)){
+if(isset($_POST['passw-update']) && !empty($_POST)){
     try{
         $id = $_SESSION['user_id'];
         $oldpw = $_POST['oldpw'];
+        $newpw = $_POST['newpw'];
+        $confirmpw = $_POST['confirm-newpw'];
         $dbpw = $_SESSION['pw'];
 
-        if(password_verify($oldpw, $dbpw)){
-            // Show new password and confirm input fields
+        if(!empty($newpw) && !empty($confirmpw) && password_verify($oldpw, $dbpw)){
+            if($newpw == $confirmpw){
+                $data = [
+                    'id'        => $id,
+                    'passw'  => password_hash($newpw, PASSWORD_DEFAULT)
+                ];
+
+                $sql = "UPDATE users SET passw = :passw WHERE id = :id";
+                $stmt = $pdo->prepare($sql);
+                $stmt->execute($data);
+            } else {
+                $_SESSION['msg'] = "You didn't confirm your new password correctly.";
+            }
+        } else {
+            $_SESSION['msg'] = "The current password you entered appears to be incorrect.";
         }
     }
     catch(PDOException $e){
@@ -39,19 +54,22 @@ if(isset($_POST['oldpass-btn']) && !empty($_POST)){
                         <label for="oldpw">Please fill in old password</label>
                         <input class="form-control p-2" type="password" name="oldpw" placeholder="Enter old password" minlength="4" required>
                     </div>
-                    <!-- <div class="form-group mt-4">
+                    <div class="form-group mt-4">
                         <label for="newpw">New password</label>
                         <input class="form-control p-2" type="password" name="newpw" placeholder="Enter new password" minlength="4" required>
                     </div>
                     <div class="form-group my-3">
                         <label for="confirm-newpw">Confirm new password</label>
                         <input class="form-control p-2" type="password" name="confirm-newpw" placeholder="Repeat new password" minlength="4" required>
-                    </div>  -->                  
-                    <p>
-                        <?php echo $_SESSION['msg']; ?>
-                    </p>
+                    </div>  
+                    <div class="alert alert-warning">
+                        <?php 
+                        echo $_SESSION['msg']; 
+                        unset($_SESSION['msg']);
+                        ?>
+                    </div>
                     <div class="form-group text-center my-5">
-                        <button class="btn btn-success" type="submit" name="oldpass-btn">Enter</button>
+                        <button class="btn btn-success" type="submit" name="passw-update">Enter</button>
                     </div>
                 </form>
             </div>
