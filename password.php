@@ -21,11 +21,14 @@ if(isset($_POST['passw-update']) && !empty($_POST)){
                 $sql = "UPDATE users SET passw = :passw WHERE id = :id";
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute($data);
+
+                $_SESSION['msg'] = '<div class="alert alert-success">Your password has been updated.</div>';
+                header('location: home.php');
             } else {
-                $_SESSION['msg'] = "You didn't confirm your new password correctly.";
+                $_SESSION['msg'] = `<div class="alert alert-warning">You didn't confirm your new password correctly.</div>`;
             }
         } else {
-            $_SESSION['msg'] = "The current password you entered appears to be incorrect.";
+            $_SESSION['msg'] = '<div class="alert alert-warning">The current password you entered appears to be incorrect.</div>';
         }
     }
     catch(PDOException $e){
@@ -62,12 +65,10 @@ if(isset($_POST['passw-update']) && !empty($_POST)){
                         <label for="confirm-newpw">Confirm new password</label>
                         <input class="form-control p-2" type="password" name="confirm-newpw" placeholder="Repeat new password" minlength="4" required>
                     </div>  
-                    <div class="alert alert-warning">
-                        <?php 
-                        echo $_SESSION['msg']; 
-                        unset($_SESSION['msg']);
-                        ?>
-                    </div>
+                    <?php 
+                    echo $_SESSION['msg']; 
+                    unset($_SESSION['msg']);
+                    ?>
                     <div class="form-group text-center my-5">
                         <button class="btn btn-success" type="submit" name="passw-update">Enter</button>
                     </div>

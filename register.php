@@ -1,8 +1,6 @@
 <?php
 session_start();
 
-$message = "";
-
 require('auth.php');
 ?>
 
@@ -48,9 +46,10 @@ require('auth.php');
                         <label for="confirmPass">Confirm Password</label>
                         <input class="form-control p-2" type="password" name="confirmPass" placeholder="Repeat password" minlength="4" required>
                     </div>
-                    <p>
-                        <?php echo $_SESSION['msg']; ?>
-                    </p>
+                    <?php 
+                    echo $_SESSION['msg']; 
+                    unset($_SESSION['msg']);
+                    ?>
                     <div class="form-group text-center my-5">
                         <button class="btn btn-success" type="submit" name="register">Register</button>
                     </div>

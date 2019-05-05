@@ -18,11 +18,14 @@ include('header.php');
     <body>
         <div class="container col-8 offset-2 my-5">
             <div class="alert alert-success">
-                <?php echo "Welcome, ".$_SESSION['fname']; ?> 
+                <?php 
+                echo "Welcome, ".$_SESSION['fname']; 
+                ?> 
             </div>
-            <div class="alert alert-info">
-                <?php echo $_SESSION['msg']; ?>
-            </div>
+            <?php 
+            echo $_SESSION['msg'];
+            unset($_SESSION['msg']); 
+            ?>
             <div class="card d-flex justify-content-center align-items-center">
                 <div class="card-body">
                     <a href="profile.php" class="btn btn-primary">View profile</a>

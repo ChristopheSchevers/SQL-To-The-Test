@@ -13,31 +13,30 @@ if(isset($_POST['register'])){
     $userpw = $_POST['password'];
     $confirmPw = $_POST['confirmPass'];
     
-    if(!empty($username) && !empty($firstname) && !empty($lastname) && !empty($usermail) && !empty($userpw) && $userpw == $confirmPw){
-        $data = [
-            'username'      => $username,
-            'fname'         => $firstname,
-            'lname'         => $lastname,
-            'user_email'    => $usermail,
-            'passw'         => password_hash($userpw, PASSWORD_DEFAULT)
-        ];
+        if(!empty($username) && !empty($firstname) && !empty($lastname) && !empty($usermail) && !empty($userpw) && $userpw == $confirmPw){
+            $data = [
+                'username'      => $username,
+                'fname'         => $firstname,
+                'lname'         => $lastname,
+                'user_email'    => $usermail,
+                'passw'         => password_hash($userpw, PASSWORD_DEFAULT)
+            ];
+            
+            $sql = "INSERT INTO users(username,fname,lname,user_email,passw) VALUES (:username, :fname, :lname, :user_email, :passw)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($data);
         
-        $sql = "INSERT INTO users(username,fname,lname,user_email,passw) VALUES (:username, :fname, :lname, :user_email, :passw)";
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute($data);
-    
-        $count = $stmt->rowCount();
-        if($count > 0) {
-            $_SESSION['fname'] = $firstname;
-            header('locaction: home.php');
-        }
-    
-    } else {
-        $_SESSION['msg'] = "Please fill in all the fields";
-        header('location: register.php');
-        exit();
-    }
-    
+            $count = $stmt->rowCount();
+            if($count > 0) {
+                $_SESSION['fname'] = $firstname;
+                header('locaction: home.php');
+            }
+        
+        } else {
+            $_SESSION['msg'] = '<div class="alert alert-warning">Please fill in all the fields</div>';
+            header('location: register.php');
+            exit();
+        }        
     }
     catch(PDOException $e){
         die("Error occurred: ". $e->getMessage());
@@ -58,7 +57,7 @@ if(isset($_POST['login'])){
         $user = $loginStmt->fetch(PDO::FETCH_ASSOC);
 
         if($user === false){
-            $_SESSION['msg'] = 'Username and/or password not correct!';
+            $_SESSION['msg'] = '<div class="alert alert-warning">Username and/or password not correct!</div>';
             header('location: login.php');
         } else {
             if(password_verify($loginpw, $user['passw'])){
@@ -73,7 +72,7 @@ if(isset($_POST['login'])){
                 header('Location: home.php');
                 exit;
             } else {
-                $_SESSION['msg'] = 'Username and/or password not correct!';
+                $_SESSION['msg'] = '<div class="alert alert-warning">Username and/or password not correct!</div>';
                 header('location: login.php');
             }
         }

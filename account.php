@@ -23,7 +23,7 @@ if(isset($_POST['update']) && !empty($_POST)){
         $stmt= $pdo->prepare($sql);
         $stmt->execute($data);
 
-        $_SESSION['msg'] = "Account updated";
+        $_SESSION['msg'] = '<div class="alert alert-success">Account updated</div>';
         header('location: home.php');
     }
     catch(PDOException $e){
@@ -66,9 +66,10 @@ if(isset($_POST['update']) && !empty($_POST)){
                         <label for="email">Email</label>
                         <input class="form-control p-2" type="email" name="email" placeholder="Enter email address" value="<?php echo $_SESSION['email']; ?>" required>
                     </div>                    
-                    <p>
-                        <?php echo $_SESSION['msg']; ?>
-                    </p>
+                    <?php 
+                    echo $_SESSION['msg']; 
+                    unset($_SESSION['msg']);
+                    ?>
                     <div class="form-group text-center my-5">
                         <button class="btn btn-success" type="submit" name="update">Update</button>
                     </div>
